@@ -1,0 +1,58 @@
+{
+  "_from": "git+https://github.com/lulouis/cordova-plugin-sznewbest-printer.git",
+  "_id": "cordova-plugin-sznewbest-printer@1.0.1",
+  "_inBundle": false,
+  "_integrity": "",
+  "_location": "/cordova-plugin-sznewbest-printer",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "git",
+    "raw": "git+https://github.com/lulouis/cordova-plugin-sznewbest-printer.git",
+    "rawSpec": "git+https://github.com/lulouis/cordova-plugin-sznewbest-printer.git",
+    "saveSpec": "git+https://github.com/lulouis/cordova-plugin-sznewbest-printer.git",
+    "fetchSpec": "https://github.com/lulouis/cordova-plugin-sznewbest-printer.git",
+    "gitCommittish": null
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "git+https://github.com/lulouis/cordova-plugin-sznewbest-printer.git",
+  "_spec": "git+https://github.com/lulouis/cordova-plugin-sznewbest-printer.git",
+  "author": {
+    "name": "louis"
+  },
+
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-sznewbest-printer",
+    "platforms": [
+      "ios",
+      "android"
+    ]
+  },
+  "deprecated": false,
+  "description": "智谷联PDA-打印机",
+  "devDependencies": {
+    "eslint": "^3.19.0"
+  },
+  "homepage": "https://github.com/lulouis/cordova-plugin-sznewbest-printer#readme",
+  "keywords": [
+    "cordova",
+    "printer",
+    "ecosystem:cordova",
+    "cordova-ios",
+    "cordova-android"
+  ],
+  "license": "Apache-2.0",
+  "name": "cordova-plugin-sznewbest-printer",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lulouis/cordova-plugin-sznewbest-printer.git"
+  },
+  "scripts": {
+    "eslint": "node node_modules/eslint/bin/eslint www && node node_modules/eslint/bin/eslint src && node node_modules/eslint/bin/eslint tests",
+    "test": "npm run eslint"
+  },
+  "version": "1.0.1"
+}

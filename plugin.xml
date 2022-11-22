@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0" 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	id="cordova-plugin-sznewbest-printer" 
+	version="1.0.1" >
+	<name>SZnewbestPrinter</name>
+	<description>Cordova sznewbest printer plugin</description>
+	<license>Apache 2.0</license>
+    <keywords>cordova,sznewbest,printer,CP1251</keywords>
+	<js-module name="SZnewbestPrinter" src="www/SZnewbestPrinter.js">
+		<clobbers target="SZnewbestPrinter" />
+	</js-module>
+	<platform name="android">
+		<config-file parent="/*" target="res/xml/config.xml">
+			<feature name="SZnewbestPrinter">
+				<param name="android-package" value="marisfrolg.printer.SZnewbestPrinter" />
+			</feature>
+		</config-file>
+		<config-file parent="/*" target="AndroidManifest.xml" />
+		<source-file src="src/android/SZnewbestPrinter.java" target-dir="src/marisfrolg/printer" />
+	</platform>
+</plugin>
