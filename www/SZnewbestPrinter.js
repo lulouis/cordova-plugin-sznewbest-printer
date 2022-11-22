@@ -24,4 +24,6 @@ if (!window.plugins.SZnewbestPrinter) {
     window.plugins.SZnewbestPrinter = new SZnewbestPrinter();
 }
 
+
+
 module.exports = new SZnewbestPrinter();
