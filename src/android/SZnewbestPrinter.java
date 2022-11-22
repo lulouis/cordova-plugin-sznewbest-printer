@@ -19,41 +19,12 @@ public class SZnewbestPrinter extends CordovaPlugin {
             this.printGBKText(text, callbackContext);
             return true;
         }
+        callbackContext.error("不支持的函数"+action);
         return false;
     }
 
     private void printGBKText(String text, CallbackContext callbackContext) {
-        callbackContext.success("打印指令发送OK.");
-    }
-
-    @Override
-    public void onPause(boolean multitasking) {
-        super.onPause(multitasking); 
-    }
-
-    @Override
-    public void onResume(boolean multitasking) {
-        super.onResume(multitasking);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    public void onNewIntent() {
-        super.onNewIntent();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
+        callbackContext.success("printGBKText发送OK.");
     }
 
 }
