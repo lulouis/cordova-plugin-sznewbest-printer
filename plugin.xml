@@ -18,5 +18,7 @@
 		</config-file>
 		<config-file parent="/*" target="AndroidManifest.xml" />
 		<source-file src="src/android/SZnewbestPrinter.java" target-dir="src/marisfrolg/printer" />
+		<source-file src="aidl/ICallBack.aidl" target-dir="src/main/aidl" />
+		<source-file src="aidl/IZKCService.aidl" target-dir="src/main/aidl" />
 	</platform>
 </plugin>
