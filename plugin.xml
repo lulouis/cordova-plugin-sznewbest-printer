@@ -20,9 +20,9 @@
 		<source-file src="src/android/SZnewbestPrinter.java" target-dir="src/marisfrolg/printer" />
 		<source-file src="aidl/ICallBack.aidl" target-dir="src/main/aidl" />
 		<source-file src="aidl/IZKCService.aidl" target-dir="src/main/aidl" />
-		<source-file src="helper/PrinterHelper.java" target-dir="src/main/java/marisfrolg.printer/helper/" />
-		<source-file src="helper/PrintTag.java" target-dir="src/main/java/marisfrolg.printer/helper/" />
-		<source-file src="helper/entity/GoodsInfo.java" target-dir="src/main/java/marisfrolg.printer/helper/entity/" />
-		<source-file src="helper/entity/SupermakerBill.java" target-dir="src/main/java/marisfrolg.printer/helper/entity/" />
+		<source-file src="helper/PrinterHelper.java" target-dir="src/marisfrolg/printer/helper/" />
+		<source-file src="helper/PrintTag.java" target-dir="src/marisfrolg/printer/helper/" />
+		<source-file src="helper/entity/GoodsInfo.java" target-dir="src/marisfrolg/printer/helper/entity/" />
+		<source-file src="helper/entity/SupermakerBill.java" target-dir="src/marisfrolg/printer/helper/entity/" />
 	</platform>
 </plugin>
