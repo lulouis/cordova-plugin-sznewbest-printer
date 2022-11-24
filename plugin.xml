@@ -20,5 +20,6 @@
 		<source-file src="src/android/SZnewbestPrinter.java" target-dir="src/marisfrolg/printer" />
 		<source-file src="aidl/ICallBack.aidl" target-dir="src/main/aidl" />
 		<source-file src="aidl/IZKCService.aidl" target-dir="src/main/aidl" />
+		<source-file src="helper/*.*" target-dir="src/main/java/marisfrolg.printer/helper/" />
 	</platform>
 </plugin>

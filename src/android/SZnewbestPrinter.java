@@ -12,17 +12,15 @@ import android.content.Context;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.os.Bundle;
-import android.os.Handler;
+import android.graphics.Bitmap;
 import android.os.IBinder;
-import android.os.Message;
 import android.os.RemoteException;
 
 import android.os.SystemClock;
 import android.util.Log;
-import android.widget.Toast;
 
-import java.io.UnsupportedEncodingException;
+import marisfrolg.printer.helper.PrinterHelper;
+import marisfrolg.printer.helper.entity.SupermakerBill;
 
 /**
  * This class echoes a string called from JavaScript.
@@ -32,6 +30,7 @@ public class SZnewbestPrinter extends CordovaPlugin {
     public static IZKCService mIzkcService;
     public static int DEVICE_MODEL = 0;
     public static int module_flag = 0;
+    private Bitmap mBitmap = null;
 
     private ServiceConnection mServiceConn = new ServiceConnection() {
         @Override
@@ -61,7 +60,7 @@ public class SZnewbestPrinter extends CordovaPlugin {
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         this.onStart();
-        SystemClock.sleep(500);
+        SystemClock.sleep(100);
         Log.i("debug",String.format("执行了插件方法:%s",action));
         if (action.equals("printGBKText")) {
             String text = args.getString(0);
@@ -73,6 +72,10 @@ public class SZnewbestPrinter extends CordovaPlugin {
             this.createBarCode("A1154005501", callbackContext);
             return true;
         }
+        if (action.equals("printTemplate")) {
+            this.printTemplate(callbackContext);
+            return true;
+        }
 
         callbackContext.error("不支持的函数"+action);
         return false;
@@ -80,16 +83,15 @@ public class SZnewbestPrinter extends CordovaPlugin {
 
     private void printGBKText(String text, CallbackContext callbackContext) {
         try {
-
             //mIzkcService.sendRAWData("print",new byte[]{0x1B,0x74,0x0F});
             mIzkcService.setPrinterLanguage("CP936",15);
 
             mIzkcService.printGBKText("GBK编码打印："+text);
 
-            byte[] buffer = new byte[]{(byte) 0x1C, (byte) 0x43, (byte) 0xFF};
-            mIzkcService.sendRAWData("print", buffer);
-            SystemClock.sleep(100);
-
+//            byte[] buffer = new byte[]{(byte) 0x1C, (byte) 0x43, (byte) 0xFF};
+//            mIzkcService.sendRAWData("print", buffer);
+            SystemClock.sleep(500);
+            mIzkcService.generateSpace();
 
 
         } catch (RemoteException e) {
@@ -101,16 +103,18 @@ public class SZnewbestPrinter extends CordovaPlugin {
     private void createBarCode(String text, CallbackContext callbackContext) {
         try {
 
-            //mIzkcService.sendRAWData("print",new byte[]{0x1B,0x74,0x0F});
-            mIzkcService.setPrinterLanguage("CP936",15);
+//            mIzkcService.setPrinterLanguage("CP936",15);
+//
+//            mIzkcService.createBarCode(text,8,3,162,true);
+//
+//            mIzkcService.sendRAWData("printer",new byte[] { 0x1E, 0x0C});
+//
+//            SystemClock.sleep(100);
 
-            mIzkcService.createBarCode(text,8,3,162,true);
-
-            byte[] buffer = new byte[]{(byte) 0x1C, (byte) 0x43, (byte) 0xFF};
-            mIzkcService.sendRAWData("print", buffer);
-            SystemClock.sleep(100);
-
-
+            mBitmap = mIzkcService.createBarCode("A1154005501", 8, 384, 120, true);
+            this.printPic();
+            SystemClock.sleep(500);
+            mIzkcService.generateSpace();
 
         } catch (RemoteException e) {
             e.printStackTrace();
@@ -118,7 +122,25 @@ public class SZnewbestPrinter extends CordovaPlugin {
         callbackContext.success("createBarCode发送OK.");
     }
 
+    private void printTemplate(CallbackContext callbackContext) {
 
+        SupermakerBill bill = PrinterHelper.getInstance(cordova.getActivity()).getSupermakerBill(mIzkcService);
+        PrinterHelper.getInstance(cordova.getActivity()).printPurchaseBillModelOne(mIzkcService, bill, 0);
+        SystemClock.sleep(100);
+        callbackContext.success("printTemplate发送OK.");
+    }
+
+
+    private void printPic() {
+        try {
+            if (mBitmap != null) {
+                mIzkcService.printBitmap(mBitmap);
+
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void onPause(boolean multitasking) {
