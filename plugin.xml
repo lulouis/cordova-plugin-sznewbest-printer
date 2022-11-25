@@ -18,8 +18,8 @@
 		</config-file>
 		<config-file parent="/*" target="AndroidManifest.xml" />
 		<source-file src="src/android/SZnewbestPrinter.java" target-dir="src/marisfrolg/printer/" />
-		<source-file src="aidl/ICallBack.aidl" target-dir="src/marisfrolg/aidl/" />
-		<source-file src="aidl/IZKCService.aidl" target-dir="src/marisfrolg/aidl/" />
+		<source-file src="aidl/ICallBack.aidl" target-dir="src/com.smartdevice.aidl/" />
+		<source-file src="aidl/IZKCService.aidl" target-dir="src/com.smartdevice.aidl/" />
 		<source-file src="helper/PrinterHelper.java" target-dir="src/marisfrolg/printer/helper/" />
 		<source-file src="helper/PrintTag.java" target-dir="src/marisfrolg/printer/helper/" />
 		<source-file src="helper/entity/GoodsInfo.java" target-dir="src/marisfrolg/printer/helper/entity/" />
