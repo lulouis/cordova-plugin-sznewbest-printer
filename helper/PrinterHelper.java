@@ -50,7 +50,7 @@ public class PrinterHelper {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        callbackContext.success("createBarCode发送OK.");
+        callbackContext.success("printGBKText发送OK.");
     }
 
     synchronized public void printBarCode(IZKCService mIzkcService,String text, CallbackContext callbackContext) {
@@ -69,7 +69,7 @@ public class PrinterHelper {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        callbackContext.success("createBarCode发送OK.");
+        callbackContext.success("printBarCode发送OK.");
     }
 
 	synchronized public void printQrCode(IZKCService mIzkcService,String text, CallbackContext callbackContext) {
@@ -88,7 +88,7 @@ public class PrinterHelper {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		callbackContext.success("createBarCode发送OK.");
+		callbackContext.success("printQrCode发送OK.");
 	}
 
 	synchronized public void printPurchaseBillModelOne(IZKCService mIzkcService, SupermakerBill bill) {
