@@ -50,9 +50,9 @@ public class SZnewbestPrinter extends CordovaPlugin {
             this.printBarCode(text, callbackContext);
             return true;
         }
-        if (action.equals("printQrcode")) {
+        if (action.equals("printQrCode")) {
             String text = args.getString(0);
-            this.printQrcode(text, callbackContext);
+            this.printQrCode(text, callbackContext);
             return true;
         }
         if (action.equals("printTemplate")) {
@@ -76,8 +76,8 @@ public class SZnewbestPrinter extends CordovaPlugin {
         callbackContext.success("printBarCode发送OK.");
     }
 
-    private void printQrcode(String text, CallbackContext callbackContext) {
-        PrinterHelper.getInstance(cordova.getActivity()).printQrcode(mIzkcService, text,callbackContext);
+    private void printQrCode(String text, CallbackContext callbackContext) {
+        PrinterHelper.getInstance(cordova.getActivity()).printQrCode(mIzkcService, text,callbackContext);
         SystemClock.sleep(100);
         callbackContext.success("printBarCode发送OK.");
     }

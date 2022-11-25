@@ -72,7 +72,7 @@ public class PrinterHelper {
         callbackContext.success("createBarCode发送OK.");
     }
 
-	synchronized public void printQrcode(IZKCService mIzkcService,String text, CallbackContext callbackContext) {
+	synchronized public void printQrCode(IZKCService mIzkcService,String text, CallbackContext callbackContext) {
 		try {
 			Bitmap btMap = null;
 
