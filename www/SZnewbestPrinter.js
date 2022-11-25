@@ -20,6 +20,11 @@ SZnewbestPrinter.prototype.printBarCode = function (str, success, error) {
     exec(success, error, 'SZnewbestPrinter', 'printBarCode', [str]);
 };
 
+SZnewbestPrinter.prototype.printQrcode = function (str, success, error) {
+    exec(success, error, 'SZnewbestPrinter', 'printQrcode', [str]);
+};
+
+
 SZnewbestPrinter.prototype.printTemplate = function (str, success, error) {
     exec(success, error, 'SZnewbestPrinter', 'printTemplate', [str]);
 };

@@ -32,35 +32,13 @@ public class SZnewbestPrinter extends CordovaPlugin {
     public static int module_flag = 0;
     private Bitmap mBitmap = null;
 
-    private ServiceConnection mServiceConn = new ServiceConnection() {
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-            Log.e("client", "onServiceDisconnected");
-            mIzkcService = null;
-        }
-
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            Log.e("client", "onServiceConnected");
-            mIzkcService = IZKCService.Stub.asInterface(service);
-            if(mIzkcService!=null){
-                try {
-                    DEVICE_MODEL = mIzkcService.getDeviceModel();
-                    mIzkcService.setModuleFlag(module_flag);
-                    if(module_flag==3){
-                        mIzkcService.openBackLight(1);
-                    }
-                } catch (android.os.RemoteException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    };
-
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        this.onStart();
-        SystemClock.sleep(100);
+        if(mIzkcService==null){
+            this.onStart();
+            SystemClock.sleep(100);
+        }
+
         Log.i("debug",String.format("执行了插件方法:%s",action));
         if (action.equals("printGBKText")) {
             String text = args.getString(0);
@@ -69,7 +47,12 @@ public class SZnewbestPrinter extends CordovaPlugin {
         }
         if (action.equals("printBarCode")) {
             String text = args.getString(0);
-            this.printBarCode("A1154005501", callbackContext);
+            this.printBarCode(text, callbackContext);
+            return true;
+        }
+        if (action.equals("printQrcode")) {
+            String text = args.getString(0);
+            this.printQrcode(text, callbackContext);
             return true;
         }
         if (action.equals("printTemplate")) {
@@ -82,64 +65,29 @@ public class SZnewbestPrinter extends CordovaPlugin {
     }
 
     private void printGBKText(String text, CallbackContext callbackContext) {
-        try {
-            //mIzkcService.sendRAWData("print",new byte[]{0x1B,0x74,0x0F});
-            mIzkcService.setPrinterLanguage("CP936",15);
-
-            mIzkcService.printGBKText("GBK编码打印："+text);
-
-//            byte[] buffer = new byte[]{(byte) 0x1C, (byte) 0x43, (byte) 0xFF};
-//            mIzkcService.sendRAWData("print", buffer);
-            SystemClock.sleep(500);
-            mIzkcService.generateSpace();
-
-
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
+        PrinterHelper.getInstance(cordova.getActivity()).printGBKText(mIzkcService, text,callbackContext);
+        SystemClock.sleep(100);
         callbackContext.success("printGBKText发送OK.");
     }
 
     private void printBarCode(String text, CallbackContext callbackContext) {
-        try {
-
-//            mIzkcService.setPrinterLanguage("CP936",15);
-//
-//            mIzkcService.createBarCode(text,8,3,162,true);
-//
-//            mIzkcService.sendRAWData("printer",new byte[] { 0x1E, 0x0C});
-//
-//            SystemClock.sleep(100);
-
-            mBitmap = mIzkcService.createBarCode("A1154005501", 8, 384, 120, true);
-            this.printPic();
-            SystemClock.sleep(500);
-            mIzkcService.generateSpace();
-
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-        callbackContext.success("createBarCode发送OK.");
+        PrinterHelper.getInstance(cordova.getActivity()).printBarCode(mIzkcService, text,callbackContext);
+        SystemClock.sleep(100);
+        callbackContext.success("printBarCode发送OK.");
     }
+
+    private void printQrcode(String text, CallbackContext callbackContext) {
+        PrinterHelper.getInstance(cordova.getActivity()).printQrcode(mIzkcService, text,callbackContext);
+        SystemClock.sleep(100);
+        callbackContext.success("printBarCode发送OK.");
+    }
+
 
     private void printTemplate(CallbackContext callbackContext) {
-
         SupermakerBill bill = PrinterHelper.getInstance(cordova.getActivity()).getSupermakerBill(mIzkcService);
-        PrinterHelper.getInstance(cordova.getActivity()).printPurchaseBillModelOne(mIzkcService, bill, 0);
+        PrinterHelper.getInstance(cordova.getActivity()).printPurchaseBillModelOne(mIzkcService, bill);
         SystemClock.sleep(100);
         callbackContext.success("printTemplate发送OK.");
-    }
-
-
-    private void printPic() {
-        try {
-            if (mBitmap != null) {
-                mIzkcService.printBitmap(mBitmap);
-
-            }
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -187,8 +135,34 @@ public class SZnewbestPrinter extends CordovaPlugin {
     }
 
     public void unbindService() {
-        //cordova.getActivity().getBaseContext().unbindService(mServiceConn);
+        if (mServiceConn!=null)
+        cordova.getActivity().getBaseContext().unbindService(mServiceConn);
     }
+
+    private ServiceConnection mServiceConn = new ServiceConnection() {
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            Log.e("client", "onServiceDisconnected");
+            mIzkcService = null;
+        }
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            Log.e("client", "onServiceConnected");
+            mIzkcService = IZKCService.Stub.asInterface(service);
+            if(mIzkcService!=null){
+                try {
+                    DEVICE_MODEL = mIzkcService.getDeviceModel();
+                    mIzkcService.setModuleFlag(module_flag);
+                    if(module_flag==3){
+                        mIzkcService.openBackLight(1);
+                    }
+                } catch (android.os.RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    };
 
 
 }
