@@ -67,9 +67,9 @@ public class SZnewbestPrinter extends CordovaPlugin {
             this.printGBKText(text, callbackContext);
             return true;
         }
-        if (action.equals("createBarCode")) {
+        if (action.equals("printBarCode")) {
             String text = args.getString(0);
-            this.createBarCode("A1154005501", callbackContext);
+            this.printBarCode("A1154005501", callbackContext);
             return true;
         }
         if (action.equals("printTemplate")) {
@@ -100,7 +100,7 @@ public class SZnewbestPrinter extends CordovaPlugin {
         callbackContext.success("printGBKText发送OK.");
     }
 
-    private void createBarCode(String text, CallbackContext callbackContext) {
+    private void printBarCode(String text, CallbackContext callbackContext) {
         try {
 
 //            mIzkcService.setPrinterLanguage("CP936",15);

@@ -16,6 +16,14 @@ SZnewbestPrinter.prototype.printGBKText = function (str, success, error) {
     exec(success, error, 'SZnewbestPrinter', 'printGBKText', [str]);
 };
 
+SZnewbestPrinter.prototype.printBarCode = function (str, success, error) {
+    exec(success, error, 'SZnewbestPrinter', 'printBarCode', [str]);
+};
+
+SZnewbestPrinter.prototype.printTemplate = function (str, success, error) {
+    exec(success, error, 'SZnewbestPrinter', 'printTemplate', [str]);
+};
+
 if (!window.plugins) {
     window.plugins = {};
 }
